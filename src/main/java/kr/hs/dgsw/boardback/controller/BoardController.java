@@ -32,6 +32,9 @@ public class BoardController {
         }
         List<TempBoard> list = new ArrayList<>();
         list.add(new TempBoard(1, "작성자1", "제목1", LocalDateTime.now()));
+        list.add(new TempBoard(2, "작성자2", "제목2", LocalDateTime.now()));
+        list.add(new TempBoard(3, "작성자3", "제목3", LocalDateTime.now()));
+        list.add(new TempBoard(4, "작성자4", "제목4", LocalDateTime.now()));
         return list;
     }
 }
