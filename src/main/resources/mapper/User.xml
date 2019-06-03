@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.hs.dgsw.boardback.model.UserMapper">
+    <insert id="add" parameterType="kr.hs.dgsw.boardback.model.User">
+        INSERT INTO users(account, password, username, email)
+        VALUES
+            (#{account}, #{password}, #{username}, #{email})
+        <selectKey keyProperty="id" resultType="Long">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+
+    <update id="modify" parameterType="kr.hs.dgsw.boardback.model.User">
+        UPDATE users SET account = #{account}, username = #{username}, email = #{email}, password = #{password}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findById" parameterType="java.lang.Long" resultType="kr.hs.dgsw.boardback.model.User">
+        SELECT id, username, account, email FROM users WHERE id = #{id}
+    </select>
+</mapper>

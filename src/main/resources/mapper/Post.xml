@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.hs.dgsw.boardback.model.UserMapper">
+    <insert id="add" parameterType="kr.hs.dgsw.boardback.model.Post">
+        INSERT INTO posts(user_id, title, content)
+        VALUES
+            (#{userId}, #{title}, #{content})
+        <selectKey keyProperty="id" resultType="Long">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+
+    <insert id="addWithHashMap" parameterType="HashMap">
+        INSERT INTO posts(user_id, title, content)
+        VALUES
+            (#{userId}, #{title}, #{content})
+        <selectKey keyProperty="id" resultType="Long">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+
+    <update id="modify" parameterType="kr.hs.dgsw.boardback.model.User">
+        UPDATE posts SET title = #{title}, content = #{content}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="kr.hs.dgsw.boardback.model.Post">
+        SELECT id, user_id, title, content FROM posts WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" parameterType="Long" resultType="HashMap">
+        SELECT p.id, p.user_id, u.username, u.account, p.title, p.content, p.created, p.updated FROM posts p LEFT JOIN users u on p.user_id = u.id WHERE user_id = #{userId}
+    </select>
+</mapper>
